@@ -7,7 +7,7 @@ services:
     image: mysql:latest
     restart: always
     ports:
-      - 3306
+      - 3306:3306
     volumes:
       - ./db_data:/data/db
       - /usr/src/app/node_modules
@@ -21,7 +21,7 @@ services:
     restart: always
     build: .
     ports:
-      - 4000
+      - 3000:3000
     depends_on:
       - db_service
 
