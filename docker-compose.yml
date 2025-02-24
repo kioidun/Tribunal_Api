@@ -30,4 +30,4 @@ services:
     build: .
     depends_on:
       - db_service
-    command: sh -c 'until nc -z db_service 3306; do sleep 1; done; npx sequelize-cli db:migrate'
+    command: sh -c './wait-for-it.sh db_service:3306 -- npx sequelize-cli db:migrate'
