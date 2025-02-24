@@ -1,17 +1,15 @@
-FROM node:alpine
+FROM node:23-alpine3.20 as base
+
+FROM base as deps
 WORKDIR /usr/src/app
-COPY ./package.json ./
-COPY ./package-lock.json ./
-RUN npm install
+COPY package*.json ./
+RUN npm install -g npm@10.9.2 && npm install
+RUN npm install express
 RUN npm i -g sequelize-cli
-COPY ./config ./config
-COPY ./controllers ./controllers
-COPY ./migrations ./migrations
-COPY ./models ./models
-COPY ./routes ./routes
-COPY ./seeders ./seeders
-COPY ./.env ./
-COPY ./.sequelizerc ./.sequelizerc
-COPY ./app.js ./app.js
-COPY ./server.js ./server.js
+
+
+FROM base as runner
+WORKDIR /usr/src/app
+# Copy all project files
+COPY . . 
 CMD ["npm", "start"]
