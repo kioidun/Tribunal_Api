@@ -1,7 +1,7 @@
-# Use an official Node.js image
-FROM node:18
+# Use a Debian-based Node.js image to ensure apt-get is available
+FROM node:18-bullseye
 
-# Install netcat (nc) for checking database availability
+# Install netcat (nc)
 RUN apt-get update && apt-get install -y netcat
 
 # Set the working directory inside the container
